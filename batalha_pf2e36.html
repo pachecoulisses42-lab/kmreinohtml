@@ -5315,8 +5315,7 @@ function defaultEM(){
 }
 function pjBaseFor(c){
   try {
-    const st = JSON.parse(localStorage.getItem(KEY)||'null');
-    const pjs = (st && st.pjs) || [];
+    const pjs = (state && state.pjs) || [];
     return pjs.find(p => p.id === c.srcId || p.id === c.id || p.id === c.pjId || p.name === c.name || (p.apelido && p.apelido === c.name)) || {};
   } catch(e){ return {}; }
 }
@@ -18248,8 +18247,10 @@ function v36SalvarAlvos(){
   if (!turnState) return;
   const a = (state.combat || []).find(x => x.id === turnState.actorId); if (!a) return;
   a.alvosSel = turnAlvos().slice(); a.targetId = turnState.targetId || null;
-  saveState(state);
+  /* o original já grava a cada clique; aqui só agenda uma gravação única (estado grande = JSON caro) */
+  clearTimeout(v36SalvarT); v36SalvarT = setTimeout(() => saveState(state), 600);
 }
+let v36SalvarT = 0;
 setTurnTarget = (function(orig){ return function(){ const r = orig.apply(this, arguments); v36SalvarAlvos(); return r; }; })(setTurnTarget);
 turnAlvoPrincipal = (function(orig){ return function(){ const r = orig.apply(this, arguments); v36SalvarAlvos(); return r; }; })(turnAlvoPrincipal);
 turnAlvoTirar = (function(orig){ return function(){ const r = orig.apply(this, arguments); v36SalvarAlvos(); return r; }; })(turnAlvoTirar);
