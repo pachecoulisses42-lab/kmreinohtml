@@ -8463,7 +8463,7 @@ function renderResCard(){
   if (waiting) h += '<div class="res-you">⏳ <b>' + esc(c.name) + '</b> age na rodada ' + (c.delay + 1) + '.</div>';
   else if (out) h += '<div class="res-you">💀 <b>' + esc(c.name) + '</b> está fora do combate.</div>';
   else h += '<div class="res-you">É a vez de <b>' + esc(c.name) + '</b> — <span class="normal">' + (c.type === 'pj' ? 'PJ' : c.type === 'hazard' ? 'Perigo' : 'Inimigo') + '</span>.</div>';
-  h += '<div class="res-actions">Ações: <b>MAP −5</b> · <b>MAP −10</b></div>';
+  h += '<div class="res-actions">Ações: <b>MAP −5</b> · <b>MAP −10</b> <small>(arma ágil: −4 · −8)</small></div>';
   h += '<div class="res-btns">';
   h += '<button onclick="openPre()">⏱ Pré</button>';
   h += '<button class="gold" onclick="openTurn()">⚔️ Turno</button>';
